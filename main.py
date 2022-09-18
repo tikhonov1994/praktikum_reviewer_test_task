@@ -6,7 +6,7 @@ class Record:
         self.amount = amount
         # В целом использование тернарного оператора оправданно
         # для коротких выражений.
-        # В данном случае лучше заменить на if-else
+        # В данном случае для лучшей читаемости заменить на if-else
         # В качестве значения по умолчанию для date лучше предоставить None
         # Это экономней по памяти и проверка на "is None" более канонична
         self.date = (
@@ -28,6 +28,7 @@ class Calculator:
         today_stats = 0
         # Имя Record нарушает PEP8
         # https://peps.python.org/pep-0008/#function-and-variable-names
+        # Переменные именуются со строчных букв
         for Record in self.records:
             if Record.date == dt.datetime.now().date():
                 # Почему бы не использовать оператор "+="?
@@ -50,11 +51,13 @@ class Calculator:
 
 
 class CaloriesCalculator(Calculator):
+    # Текст из комментария лучше перенести в docstring
     def get_calories_remained(self):  # Получает остаток калорий на сегодня
         x = self.limit - self.get_today_stats()
         if x > 0:
             # Вместо использования двух f-строк лучше обернуть возвращаемое
             # значение в скобки и использовать одну f-строку
+            # В задании есть требование об округлении значений до сотых
             return f'Сегодня можно съесть что-нибудь' \
                    f' ещё, но с общей калорийностью не более {x} кКал'
         else:
